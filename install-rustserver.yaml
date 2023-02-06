@@ -11,6 +11,7 @@
     - name: Ensure user exists
       ansible.builtin.user:
         name: "{{ item.name }}"
+        shell: /bin/bash
         state: present
       loop: "{{ rust_instances }}"
 
