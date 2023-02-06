@@ -1,7 +1,7 @@
 - name: Set up the LGSM web panel
   become: true
   block:
-
+    - debug: var=ansible_default_ipv4.address
     - name: Copy web files to users home
       ansible.builtin.copy:
         src: "{{ playbook_dir }}/files/web/"

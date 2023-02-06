@@ -1,7 +1,7 @@
 - name: Install a Rust Server
   hosts: rustserver
   connection: local
-  gather_facts: False
+  gather_facts: True
 
   vars:
     default_password: "{{ 'LetsGoWithABigPassword' | password_hash('sha512', 'mysecretsalt') }}"
