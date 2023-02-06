@@ -12,9 +12,5 @@
     ProxyPass / http://0.0.0.0:{{ item.proxy_port }}/
     ProxyPassReverse / http://0.0.0.0:{{ item.proxy_port }}/
 
-
-Include /etc/letsencrypt/options-ssl-apache.conf
-SSLCertificateFile /etc/letsencrypt/live/poggers.gg/fullchain.pem
-SSLCertificateKeyFile /etc/letsencrypt/live/poggers.gg/privkey.pem
 </VirtualHost>
 </IfModule>

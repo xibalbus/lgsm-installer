@@ -14,4 +14,10 @@
         src: http.conf.j2
         dest: /etc/apache2/sites-available/{{ item.name }}.conf
       loop: "{{ rust_instances }}"
+      
+    - name: Generate HTTPS conf
+      ansible.builtin.template:
+        src: ssl.conf.j2
+        dest: /etc/apache2/sites-available/{{ item.name }}-ssl.conf
+      loop: "{{ rust_instances }}"
  
