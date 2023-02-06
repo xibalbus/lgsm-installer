@@ -1,5 +1,5 @@
 <IfModule mod_ssl.c>
-<VirtualHost *:{{ item.port }}>
+<VirtualHost *:{{ item.ssl_port }}>
     ServerAdmin webmaster@localhost
     ServerName {{ item.servername }}
 {% if item.serveralias is defined %}    
