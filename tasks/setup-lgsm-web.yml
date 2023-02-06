@@ -4,9 +4,11 @@
   block:
 
     - name: Copy web files to users home
-      shell: "cp -R "installer/files/web/"* /home/{{ item.name }}"
-      args:
-        chdir: "/home/{{ item.name }}"
+      ansible.builtin.copy:
+        src: "/home/{{ item.name }}/installer/files/web/"
+        dest: "/home/{{ item.name }}/"
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
 
 - name: Set up the LGSM web panel
   become: true
