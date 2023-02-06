@@ -4,7 +4,7 @@
   block:
 
     - name: Copy web files to users home
-      shell: "cp -R files/web/* /home/{{ item.name }}"
+      shell: "cp -R installer/files/web/* /home/{{ item.name }}"
       args:
         chdir: "/home/{{ item.name }}"
 
