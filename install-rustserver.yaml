@@ -9,6 +9,7 @@
 
   tasks:
     - name: Ensure user exists
+      become: yes
       ansible.builtin.user:
         name: "{{ item.name }}"
         shell: /bin/bash
