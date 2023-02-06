@@ -1,0 +1,20 @@
+- name: Install a Rust Server
+  hosts: rustserver
+  connection: local
+  gather_facts: False
+
+  vars:
+    default_password: "{{ 'LetsGoWithABigPassword' | password_hash('sha512', 'mysecretsalt') }}"
+
+
+  tasks:
+    - name: Ensure user exists
+      ansible.builtin.user:
+        name: "{{ item.name }}"
+        state: present
+      loop: "{{ rust_instances }}"
+
+    - name: Download and Install LGSM
+      include_tasks: tasks/install-lgsm.yml
+      loop: "{{ rust_instances }}"
+    

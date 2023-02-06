@@ -1,0 +1,6 @@
+all:
+  hosts:
+    rustserver:
+        ansible_host: localhost
+        rust_instances:
+          - name: testserver

@@ -1,0 +1,49 @@
+- name: Download and Install LGSM
+  become: true
+  become_user: "{{ item.name }}"
+  block:
+
+    - name: Check the rustserver script exists
+      stat:
+        path: "/home/{{ item.name }}/rustserver"
+      register: rustserver_exists
+
+    - name: Check the rustserver directory exists
+      stat:
+        path: "/home/{{ item.name }}/serverfiles"
+      register: rustserver_dir_exists
+
+    - name: Download and run Lgsm
+      shell: "wget -O linuxgsm.sh https://linuxgsm.sh && chmod +x linuxgsm.sh && bash linuxgsm.sh rustserver"
+      args:
+        chdir: "/home/{{ item.name }}"
+      when: rustserver_exists.stat.exists==False
+
+    - name: Install Rustserver
+      shell: "./rustserver auto-install"
+      args:
+        chdir: "/home/{{ item.name }}"
+      when: rustserver_dir_exists.stat.exists==False
+
+    - name: Ensure mods directory exists
+      ansible.builtin.file:
+        path: "/home/{{ item.name }}/lgsm/mods"
+        state: directory
+
+    - name: Ensure mods detail file exists
+      shell: "echo rustoxide > /home/{{ item.name }}/lgsm/mods/installed-mods.txt"
+
+    - name: Update oxide to pull down the files
+      shell: "./rustserver mods-update"
+      args:
+        chdir: "/home/{{ item.name }}"
+
+    - name: Start the server
+      shell: "./rustserver start"
+      args:
+        chdir: "/home/{{ item.name }}"
+
+
+
+
+  
