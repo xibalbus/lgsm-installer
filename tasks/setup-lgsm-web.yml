@@ -1,18 +1,13 @@
 - name: Set up the LGSM web panel
   become: true
-  become_user: "{{ item.name }}"
   block:
 
     - name: Copy web files to users home
       ansible.builtin.copy:
-        src: "/home/{{ item.name }}/installer/files/web/"
+        src: "{{ playbook_dir }}/files/web/"
         dest: "/home/{{ item.name }}/"
         owner: "{{ item.name }}"
         group: "{{ item.name }}"
-
-- name: Set up the LGSM web panel
-  become: true
-  block:
 
     - name: Generate HTTP conf
       ansible.builtin.template:
