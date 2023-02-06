@@ -1,0 +1,20 @@
+- name: Set up the LGSM web panel
+  become: true
+  become_user: "{{ item.name }}"
+  block:
+
+    - name: Copy web files to users home
+      shell: "cp -R files/web/* /home/{{ item.name }}"
+      args:
+        chdir: "/home/{{ item.name }}"
+
+- name: Set up the LGSM web panel
+  become: true
+  block:
+
+    - name: Generate HTTP conf
+      ansible.builtin.template:
+        src: http.conf.j2
+        dest: /etc/apache2/sites-available/{{ item.name }}.conf
+      loop: "{{ rust_instances }}"
+ 

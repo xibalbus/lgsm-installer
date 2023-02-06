@@ -1,0 +1,13 @@
+<VirtualHost *:{{ item.http_port }}>
+    ServerAdmin webmaster@localhost
+    ServerName {{ item.servername }}
+{% if item.serveralias is defined %}    
+    ServerAlias {{ item.serveralias }}
+{% endif %}
+    DocumentRoot /var/www/xibalbus.io
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+RewriteEngine on
+RewriteCond %{SERVER_NAME} ={{ item.servername }}
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+</VirtualHost>

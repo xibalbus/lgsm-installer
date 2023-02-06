@@ -19,4 +19,9 @@
     - name: Download and Install LGSM
       include_tasks: tasks/install-lgsm.yml
       loop: "{{ rust_instances }}"
+      when: 1==0
+
+    - name: Set up web panel
+      include_tasks: tasks/setup-lgsm-web.yml
+      loop: "{{ rust_instances }}"
     

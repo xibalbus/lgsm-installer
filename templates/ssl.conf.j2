@@ -1,0 +1,20 @@
+<IfModule mod_ssl.c>
+<VirtualHost *:{{ item.port }}>
+    ServerAdmin webmaster@localhost
+    ServerName {{ item.servername }}
+{% if item.serveralias is defined %}    
+    ServerAlias {{ item.serveralias }}
+{% endif %}
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+    CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+    ProxyPreserveHost On
+    ProxyPass / http://0.0.0.0:{{ item.proxy_port }}/
+    ProxyPassReverse / http://0.0.0.0:{{ item.proxy_port }}/
+
+
+Include /etc/letsencrypt/options-ssl-apache.conf
+SSLCertificateFile /etc/letsencrypt/live/poggers.gg/fullchain.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/poggers.gg/privkey.pem
+</VirtualHost>
+</IfModule>
