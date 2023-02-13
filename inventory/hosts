@@ -3,7 +3,7 @@ all:
     rustserver:
         ansible_host: localhost
         rust_instances:
-          - name: testserver
+          - name: rustserver
             servername: "{{ ansible_default_ipv4.address }}"
             http_port: 80
             ssl_port: 8083
